@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bharath.bharath_instagramfollowingpage.R
 import com.bharath.bharath_instagramfollowingpage.data.FakePersonsData
 import com.bharath.bharath_instagramfollowingpage.data.FollowingRequests
-import com.bharath.bharath_instagramfollowingpage.presentation.RequestsViewModel
+import com.bharath.bharath_instagramfollowingpage.presentation.viewmodel.RequestsViewModel
 import com.bharath.bharath_instagramfollowingpage.presentation.adapters.RequestsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

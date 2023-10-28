@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -23,7 +24,7 @@ import com.bharath.bharath_instagramfollowingpage.R
 import com.bharath.bharath_instagramfollowingpage.data.FakePersonsData
 import com.bharath.bharath_instagramfollowingpage.data.PersonData
 import com.bharath.bharath_instagramfollowingpage.data.database.HighLightsData
-import com.bharath.bharath_instagramfollowingpage.presentation.HomeViewModel
+import com.bharath.bharath_instagramfollowingpage.presentation.viewmodel.HomeViewModel
 import com.bharath.bharath_instagramfollowingpage.presentation.adapters.GridRecyclerViewAdap
 import com.bharath.bharath_instagramfollowingpage.presentation.adapters.HighLightsAdapter
 import com.bharath.bharath_instagramfollowingpage.presentation.adapters.ListRecylerViewAdapter
@@ -41,26 +42,30 @@ class HomeFragment : Fragment(), ListRecylerViewAdapter.RecyclerViewClickListene
 
     private val viewModel by viewModels<HomeViewModel>()
 
-    lateinit var profileImage: CircleImageView
+    private lateinit var profileImage: CircleImageView
 
-    lateinit var recycler: RecyclerView
-    lateinit var adapter: ListRecylerViewAdapter
-    lateinit var imageButton: ImageView
-    lateinit var fakeData: FakePersonsData
-    lateinit var gridAdapter: GridRecyclerViewAdap
-    lateinit var list: List<PersonData>
-    lateinit var highLightsList: List<HighLightsData>
-    lateinit var followersCount: TextView
+    private lateinit var recycler: RecyclerView
+    private lateinit var adapter: ListRecylerViewAdapter
+    private lateinit var imageButton: ImageView
+    private lateinit var fakeData: FakePersonsData
+    private lateinit var gridAdapter: GridRecyclerViewAdap
+    private lateinit var list: List<PersonData>
+    private lateinit var highLightsList: List<HighLightsData>
+    private lateinit var followersCount: TextView
 
-    lateinit var highLightsAdapter: HighLightsAdapter
-    lateinit var suggestionList: List<PersonData>
+    private lateinit var highLightsAdapter: HighLightsAdapter
+    private lateinit var suggestionList: List<PersonData>
     private var isList = true
-    lateinit var sharedPreferences: SharedPreferences
-    lateinit var editor: Editor
-    lateinit var followingCount: TextView
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor: Editor
+    private lateinit var followingCount: TextView
 
-    lateinit var requestsButton: TextView
-    lateinit var horizontalRecycler: RecyclerView
+    private lateinit var requestsButton: TextView
+    private lateinit var horizontalRecycler: RecyclerView
+
+
+    private lateinit var followers: LinearLayout
+    private lateinit var following: LinearLayout
 
 
     override fun onCreateView(
@@ -81,6 +86,9 @@ class HomeFragment : Fragment(), ListRecylerViewAdapter.RecyclerViewClickListene
         highLightsAdapter = HighLightsAdapter(requireContext())
         followersCount = v.findViewById(R.id.followersCount)
         profileImage = v.findViewById(R.id.profileImageHome)
+        following = v.findViewById(R.id.FollowingLayout)
+        followers = v.findViewById(R.id.followersLayout)
+
         sharedPreferences = requireActivity().getSharedPreferences("sf", MODE_PRIVATE)
         editor = sharedPreferences.edit()
         list = fakeData.generateFakeDataSuggestions()
@@ -159,8 +167,6 @@ class HomeFragment : Fragment(), ListRecylerViewAdapter.RecyclerViewClickListene
 
     private fun setGridRecyler() {
         recycler.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-
-//        recycler.swapAdapter(gridAdapter, true)
         recycler.adapter = gridAdapter
         gridAdapter.submitList(suggestionList)
     }
@@ -180,6 +186,25 @@ class HomeFragment : Fragment(), ListRecylerViewAdapter.RecyclerViewClickListene
         requestsButton.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_requestsFragment)
         }
+
+        followers.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putInt("Mode", 0)
+            navigateToUnfollowPage(bundle)
+        }
+        following.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putInt("Mode", 1)
+            navigateToUnfollowPage(bundle)
+        }
+
+
+    }
+
+    fun navigateToUnfollowPage(
+        bundle: Bundle,
+    ) {
+        findNavController().navigate(R.id.action_homeFragment_to_unfollowPage, args = bundle)
     }
 
     override fun onItemClick(personData: PersonData) {

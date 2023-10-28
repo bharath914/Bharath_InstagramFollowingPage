@@ -32,9 +32,9 @@ data class FollowingData(
     @ColumnInfo("fUserName") val userName: String,
     @ColumnInfo("fisFollowing") val isFollowing: Boolean = true,
 ) {
-    fun toPersonData(): PersonData {
+    fun toPersonData(following: Boolean): PersonData {
         return PersonData(
-            id, personName, personImage, userName, isFollowing
+            id, personName, personImage, userName, following
         )
     }
 }
@@ -70,7 +70,11 @@ data class Followers(
 
     ) {
 
-
+    fun toFollowRequests(): FollowingRequests {
+        return FollowingRequests(
+            id, personName, personImage, userName
+        )
+    }
 }
 
 

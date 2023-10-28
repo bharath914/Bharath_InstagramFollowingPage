@@ -1,4 +1,4 @@
-package com.bharath.bharath_instagramfollowingpage.presentation
+package com.bharath.bharath_instagramfollowingpage.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -45,6 +45,11 @@ interface MyDao {
     @Delete(entity = FollowingRequests::class)
     suspend fun deleteFollowRequests(followingRequests: FollowingRequests)
 
+    @Delete(entity = Followers::class)
+    suspend fun deleteFollower(followers: Followers)
+
+    @Delete(entity = FollowingData::class)
+    suspend fun deleteFollowingPerson(followingData: FollowingData)
 
     /*
     required queries
@@ -52,12 +57,21 @@ interface MyDao {
     @Query("SELECT COUNT(*) FROM FollowingPersons")
     fun getFollowingCount(): Flow<Int>
 
+
     @Query("SELECT * FROM PersonData")
     fun getAllSuggestions(): Flow<List<PersonData>>
 
     @Query("SELECT * FROM  FollowingRequests")
     fun getAllFollowingRequests(): Flow<List<FollowingRequests>>
 
+
     @Query("SELECT COUNT(*) FROM FollowersTable")
     fun getAllFollowersCount(): Flow<Int>
+
+    @Query("SELECT * FROM FollowersTable")
+    fun getAllFollowers(): Flow<List<Followers>>
+
+    @Query("SELECT * FROM FollowingPersons")
+    fun getFollowingPersons(): Flow<List<FollowingData>>
+
 }
