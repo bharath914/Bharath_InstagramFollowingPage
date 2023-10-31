@@ -4,6 +4,9 @@ import android.util.Log
 import com.bharath.bharath_instagramfollowingpage.data.database.HighLightsData
 
 
+/*
+Fake person data for filling the Ui
+ */
 class FakePersonsData {
 
 

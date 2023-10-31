@@ -7,6 +7,10 @@ import com.bharath.bharath_instagramfollowingpage.data.FollowingData
 import com.bharath.bharath_instagramfollowingpage.data.FollowingRequests
 import com.bharath.bharath_instagramfollowingpage.data.PersonData
 
+
+/*
+Database
+ */
 @Database(
     entities = [PersonData::class, FollowingData::class, Followers::class, FollowingRequests::class],
     version = 1

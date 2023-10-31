@@ -10,6 +10,18 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
+/*
+This is an important step in Clean + MVVM architecture
+
+    This comes from the SOLID principles in the Software development
+    I --> Interface segregation principle
+    Having these type of architecture helps in maintaining  our code base
+    This creates loose coupling between two classes
+    ---> If we want to change something in the data part of the app it is very to
+    change it by this architecture as we don't need to worry about
+    UI layer
+ */
+
 interface Repository {
     suspend fun insert(personData: PersonData)
     suspend fun getFollowingCount(): Flow<Int>

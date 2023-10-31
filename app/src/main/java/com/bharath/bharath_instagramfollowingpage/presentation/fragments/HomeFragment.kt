@@ -35,7 +35,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-@AndroidEntryPoint
+@AndroidEntryPoint // tells dagger hilt to inject something here
 class HomeFragment : Fragment(), ListRecylerViewAdapter.RecyclerViewClickListener,
     GridRecyclerViewAdap.RecyclerViewClickListenerGrid {
 

@@ -12,8 +12,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
+@HiltViewModel // creates an instance of viewmodel through the lifecycle of viewmodel
 
+/*
+Here we are injecting the repository for our database operations.
+but in the clean architecture we need to create an use-case class to access it.
+
+ */
 class HomeViewModel @Inject constructor(
     private val repository: Repository,
 ) : ViewModel() {
@@ -21,6 +26,8 @@ class HomeViewModel @Inject constructor(
     private val _followingCount = MutableStateFlow(0)
     val followingCount = _followingCount.asStateFlow()
 
+    // Stateflows are similar to livedata but the dataflow will be in states
+    // The data will be collected only when the data is changed as it is flowed in states
     private val _followersCount = MutableStateFlow(0)
     val followersCount = _followersCount.asStateFlow()
     private val _suggestionList = MutableStateFlow(emptyList<PersonData>())
@@ -33,6 +40,10 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getSuggestionsList() {
+        /*
+        we are getting the list using IO thread for smooth experience
+        as if we use main block it causes blocking of ui elements
+         */
         viewModelScope.launch(Dispatchers.IO) {
             repository.getAllSuggestions().collect { list ->
                 _suggestionList.tryEmit(

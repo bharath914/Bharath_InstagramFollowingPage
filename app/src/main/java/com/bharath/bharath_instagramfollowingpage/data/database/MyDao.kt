@@ -12,6 +12,11 @@ import com.bharath.bharath_instagramfollowingpage.data.FollowingRequests
 import com.bharath.bharath_instagramfollowingpage.data.PersonData
 import kotlinx.coroutines.flow.Flow
 
+/*
+Dao - Data access object
+simply with dao we can access the data from the database
+it is an bridge between our database and dataflow
+ */
 @Dao
 interface MyDao {
 

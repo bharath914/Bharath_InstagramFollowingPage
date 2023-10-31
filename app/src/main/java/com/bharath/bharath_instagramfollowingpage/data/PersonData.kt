@@ -4,6 +4,14 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+
+/*
+These are essential data classes to store the information correctly in the table
+@Entity = Entity / table name
+@Primary Key = basically the identifier of the table
+
+ */
+
 @Entity(
     tableName = "PersonData"
 )
@@ -15,6 +23,14 @@ data class PersonData(
     @ColumnInfo("isFollowing") val isFollowing: Boolean = false,
 
     ) {
+
+
+    /*
+    This is an extensive function
+    to convert one data class to another dataclass
+    here PersonData  ---> Following Data
+     */
+
     fun toFollowingData(): FollowingData {
         return FollowingData(
             id, personName, personImage, userName, isFollowing
@@ -32,6 +48,7 @@ data class FollowingData(
     @ColumnInfo("fUserName") val userName: String,
     @ColumnInfo("fisFollowing") val isFollowing: Boolean = true,
 ) {
+
     fun toPersonData(following: Boolean): PersonData {
         return PersonData(
             id, personName, personImage, userName, following
